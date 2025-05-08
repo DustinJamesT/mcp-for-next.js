@@ -1,26 +1,40 @@
 import { createMcpHandler } from "@vercel/mcp-adapter";
-import { z } from "zod";
+
+// tools 
+import { registerTools } from "@/tools/register-tools";
+
+// resources
+import { registerResources } from "@/resources/register-resources";
+
+
 
 const handler = createMcpHandler(
-  (server) => {
-    server.tool(
-      "echo",
-      "Echo a message",
-      { message: z.string() },
-      async ({ message }) => ({
-        content: [{ type: "text", text: `Tool echo: ${message}` }],
-      })
-    );
-  },
+  (server: any) => {
+    server.instructions = "This is a test of the instructions tool."
 
-  
+    registerTools(server)
+    registerResources(server)
+    
+  },
   {
     capabilities: {
       tools: {
         echo: {
           description: "Echo a message",
+          // Zod schema for echo tool's message param
+          parameters: { type: "object", properties: { message: { type: "string" } }, required: ["message"] }
         },
+
       },
+      resources: {
+        categoryEcosystemIds: {
+          description: "Echoes text from a URI like echo://your-text-here"
+        },
+        conversations: {
+          description: "Echoes text from a URI like echo://your-text-here"
+        }
+      },
+      prompts: {}
     },
   },
   {
@@ -28,7 +42,7 @@ const handler = createMcpHandler(
     sseEndpoint: "/sse",
     streamableHttpEndpoint: "/mcp",
     verboseLogs: true,
-    maxDuration: 120,
+    maxDuration: 800,
   }
 );
 
