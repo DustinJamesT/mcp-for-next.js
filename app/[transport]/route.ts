@@ -12,6 +12,8 @@ const handler = createMcpHandler(
       })
     );
   },
+
+  
   {
     capabilities: {
       tools: {
@@ -26,7 +28,7 @@ const handler = createMcpHandler(
     sseEndpoint: "/sse",
     streamableHttpEndpoint: "/mcp",
     verboseLogs: true,
-    maxDuration: 60,
+    maxDuration: 120,
   }
 );
 
