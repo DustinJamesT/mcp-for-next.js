@@ -1,17 +1,14 @@
-
-
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
-export function researchTest(server: McpServer) {
+export function researchTool(server: McpServer) {
 
     server.tool(
         "research",
         `Conducts a research task on a topic.
         Access to vector database of recent news, crypto projects, research papers, and more.
-        Returns a write up of the research, including influential content and sources.
-        `,
-        { 
+        Returns a write up of the research, including influential content and sources.`,
+        {
             instructions: z
                 .string()
                 .describe('simple objective for the search. This should be a single sentence with a clear objective.'),
@@ -30,6 +27,10 @@ export function researchTest(server: McpServer) {
                 .describe('the category_ids to filter the research context by')
                 .min(0)
                 .max(5),
+            twitter_handles: z
+                .array(z.string())
+                .describe('exact twitter handles to get project data for')
+                .optional(),
             research_depth: z
                 .enum(['low', 'medium', 'high'])
                 .describe('the depth of the research. Can be one of "low", "medium", "high" depending on user request. Default is "medium"')

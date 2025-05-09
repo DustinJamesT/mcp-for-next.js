@@ -19,32 +19,29 @@ const handler = createMcpHandler(
   {
     capabilities: {
       tools: {
-        echo: {
-          description: "Echo a message",
-          // Zod schema for echo tool's message param
-          parameters: { type: "object", properties: { message: { type: "string" } }, required: ["message"] }
-        },
-
+        // research: {  // <--- Comment this block out
+        //   description: "Conducts a research task on a topic. Access to vector database of recent news, crypto projects, research papers, and more. Returns a write up of the research, including influential content and sources.",
+        //   parameters: {
+        //     type: "object",
+        //     properties: {
+        //       instructions: { type: "string" },
+        //     }
+        //   }
+        // }
       },
-      resources: {
-        categoryEcosystemIds: {
-          description: "Echoes text from a URI like echo://your-text-here"
-        },
-        conversations: {
-          description: "Echoes text from a URI like echo://your-text-here"
-        }
-      },
+      resources: {},
       prompts: {}
     },
   },
   {
     redisUrl: process.env.REDIS_URL,
     sseEndpoint: "/sse",
-    sseMessageEndpoint: "/message",
+    //sseMessageEndpoint: "/message",
     streamableHttpEndpoint: "/mcp",
     verboseLogs: true,
     maxDuration: 800,
   }
 );
+
 
 export { handler as GET, handler as POST, handler as DELETE };
