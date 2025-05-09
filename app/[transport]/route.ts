@@ -19,15 +19,15 @@ const handler = createMcpHandler(
   {
     capabilities: {
       tools: {
-        // research: {  // <--- Comment this block out
-        //   description: "Conducts a research task on a topic. Access to vector database of recent news, crypto projects, research papers, and more. Returns a write up of the research, including influential content and sources.",
-        //   parameters: {
-        //     type: "object",
-        //     properties: {
-        //       instructions: { type: "string" },
-        //     }
-        //   }
-        // }
+        research: {
+          description: "Conducts a research task on a topic. Access to vector database of recent news, crypto projects, research papers, and more. Returns a write up of the research, including influential content and sources.",
+          parameters: {
+            type: "object",
+            properties: {
+              instructions: { type: "string" },
+            }
+          }
+        }
       },
       resources: {},
       prompts: {}
@@ -36,7 +36,7 @@ const handler = createMcpHandler(
   {
     redisUrl: process.env.REDIS_URL,
     sseEndpoint: "/sse",
-    //sseMessageEndpoint: "/message",
+    sseMessageEndpoint: "/message",
     streamableHttpEndpoint: "/mcp",
     verboseLogs: true,
     maxDuration: 800,
