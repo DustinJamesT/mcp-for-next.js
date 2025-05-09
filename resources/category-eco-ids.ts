@@ -72,13 +72,18 @@ export function getCategoryEcoIds(server: McpServer) {
     server.resource(
         "Feed: Returns feed metadata. Accepts content resource URI, i.e. feeds://{id}, where 'id' is a feed identifier.",
         new ResourceTemplate("feeds://{category_or_ecosystem}}", { list: undefined }),
-        async (uri: URL, variables) => {
+        async (uri: URL, variables, ctx) => {
           const id = variables.id as string;
           const client = 'test'
-          
+          console.log('... [resource] getCategoryEcoIds ctx:', ctx);
+          const auth = ctx.authInfo?.token; // ← "Bearer xxx"
+          console.log('... [resource] getCategoryEcoIds auth:', auth);
+          const authInfo = ctx.authInfo;
+          console.log('... [resource] getCategoryEcoIds authInfo:', authInfo);
           try {
             const response = ""
-      
+            console.log('... [resource] getCategoryEcoIds process.env.VELDT_API_KEY:', process.env.VELDT_API_KEY);
+
             return {
               contents: [
                 {

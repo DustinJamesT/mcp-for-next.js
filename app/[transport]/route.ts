@@ -15,6 +15,7 @@ const handler = createMcpHandler(
     registerTools(server)
     registerResources(server)
     
+
   },
   {
     capabilities: {
@@ -42,6 +43,7 @@ const handler = createMcpHandler(
     maxDuration: 800,
   }
 );
+
 
 
 export { handler as GET, handler as POST, handler as DELETE };

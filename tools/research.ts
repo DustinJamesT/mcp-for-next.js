@@ -59,6 +59,7 @@ export function researchTool(server: McpServer) {
                 };
 
                 console.log('... [tool] researchTool body:', body);
+                console.log('... [tool] researchTool get user api key:', process.env.VELDT_API_KEY);
 
                 const fetchResponse = await fetch(
                     process.env.VELDT_AGENT_BASE_URL + '/api/v1/agent/research-skill',
@@ -93,7 +94,17 @@ export function researchTool(server: McpServer) {
 
                 // If fetchResponse.ok is true, parse the JSON response
                 const response = await fetchResponse.json();
+
+                console.log('... [tool] researchTool response:', response);
                 
+                
+                // TEMPORARY TEST: Return a very simple hardcoded response
+                //return {
+                //    content: [{
+                //        type: "text",
+                //        text: "Test response: Hello from researchTool!"
+                //    }]
+                //};
                 
                 return {
                     content: [{ 
@@ -101,6 +112,7 @@ export function researchTool(server: McpServer) {
                         text: JSON.stringify(response, null, 2) 
                     }]
                 };
+                
             } catch (err: unknown) {
             const error = err as Error;
             return {
